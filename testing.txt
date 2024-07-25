@@ -1,0 +1,29 @@
+Step 8 - Perform Sentiment Analysis
+twt = ['I do not recommend this product']
+twt = tokenizer.texts_to_sequences(twt)
+twt = tf.keras.preprocessing.sequence.pad_sequences(twt, maxlen=X.shape[1], dtype='int32', value=0)
+sentiment = model.predict(twt, batch_size=1)[0]
+print(sentiment)
+
+if(np.argmax(sentiment) == 0):
+    print(y_arr[0])
+elif (np.argmax(sentiment) == 1):
+    print(y_arr[1])
+# Output:
+[9.9999976e-01 2.4887424e-07]
+Negative
+
+
+Model Evaluation
+# Making predictions
+sample_text = (
+    '''The movie by GeeksforGeeks was so good and the animation are so dope.
+    I would recommend my friends to watch it.''')
+predictions = model.predict(np.array([sample_text]))
+print(*predictions[0])
+
+# Print the label based on the prediction
+if predictions[0] > 0:
+    print('The review is positive')
+else:
+    print('The review is negative')
